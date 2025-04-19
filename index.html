@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Fast Node.js Serverless Framework</title>
+	<style>
+		/* Reset CSS */
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			background-color: #cbf0f6;
+			color: #333;
+			line-height: 1.6;
+			overflow-x: hidden;
+		}
+
+		/* Header */
+		header {
+			padding: 20px 0;
+			text-align: center;
+		}
+
+		.logo-container {
+			margin: 20px auto;
+			width: 180px;
+			height: 180px;
+			position: relative;
+		}
+
+		/* Hero section */
+		.hero {
+			position: relative;
+			text-align: center;
+			padding: 60px 20px;
+			overflow: hidden;
+			min-height: 500px;
+		}
+
+		.hero h1 {
+			font-size: 42px;
+			margin-bottom: 20px;
+			position: relative;
+			z-index: 10;
+			text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+		}
+
+		.hero p {
+			font-size: 20px;
+			max-width: 800px;
+			margin: 0 auto 30px;
+			position: relative;
+			z-index: 10;
+		}
+
+		.cta-button {
+			display: inline-block;
+			background-color: #4472ca;
+			color: white;
+			padding: 12px 30px;
+			border-radius: 30px;
+			text-decoration: none;
+			font-weight: bold;
+			font-size: 18px;
+			transition: all 0.3s ease;
+			position: relative;
+			z-index: 10;
+			margin: 10px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		}
+
+		.cta-button:hover {
+			background-color: #3a5fc5;
+			transform: translateY(-2px);
+			box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+		}
+
+		.cta-button.secondary {
+			background-color: #e76f51;
+		}
+
+		.cta-button.secondary:hover {
+			background-color: #e05f3d;
+		}
+
+		.coming-soon-badge {
+			background-color: #e76f51;
+			color: white;
+			font-weight: bold;
+			padding: 10px 20px;
+			border-radius: 5px;
+			display: inline-block;
+			margin-bottom: 30px;
+			font-size: 18px;
+			letter-spacing: 1px;
+			transform: rotate(-2deg);
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			position: relative;
+			z-index: 10;
+		}
+
+		/* Features section */
+		.features {
+			padding: 80px 20px;
+			background-color: white;
+			position: relative;
+			z-index: 20;
+		}
+
+		.features h2 {
+			text-align: center;
+			font-size: 36px;
+			margin-bottom: 50px;
+		}
+
+		.feature-grid {
+			display: flex;
+			flex-wrap: wrap;
+			max-width: 1200px;
+			margin: 0 auto;
+			justify-content: center;
+		}
+
+		.feature-card {
+			flex: 1 1 300px;
+			margin: 20px;
+			padding: 30px;
+			border-radius: 15px;
+			background-color: #f8f9fa;
+			box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+			transition: transform 0.3s ease;
+		}
+
+		.feature-card:hover {
+			transform: translateY(-10px);
+		}
+
+		.feature-card h3 {
+			font-size: 24px;
+			margin-bottom: 15px;
+			color: #2b3a67;
+		}
+
+		.feature-card p {
+			color: #555;
+		}
+
+		/* Code section */
+		.code-section {
+			padding: 80px 20px;
+			background-color: #f3f9fb;
+			position: relative;
+			z-index: 20;
+		}
+
+		.code-section h2 {
+			text-align: center;
+			font-size: 36px;
+			margin-bottom: 30px;
+		}
+
+		.code-container {
+			max-width: 800px;
+			margin: 0 auto;
+			background-color: #2b3a67;
+			border-radius: 10px;
+			padding: 25px;
+			color: #f8f9fa;
+			font-family: 'Courier New', Courier, monospace;
+			box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+			position: relative;
+		}
+
+		.code-dots {
+			display: flex;
+			margin-bottom: 15px;
+		}
+
+		.dot {
+			width: 12px;
+			height: 12px;
+			border-radius: 50%;
+			margin-right: 8px;
+		}
+
+		.dot.red {
+			background-color: #ff5f57;
+		}
+
+		.dot.yellow {
+			background-color: #febc2e;
+		}
+
+		.dot.green {
+			background-color: #28c840;
+		}
+
+		code {
+			display: block;
+			line-height: 1.6;
+			overflow-x: auto;
+		}
+
+		.highlight {
+			color: #e76f51;
+		}
+
+		/* Footer */
+		footer {
+			background-color: #2b3a67;
+			color: white;
+			padding: 60px 20px;
+			text-align: center;
+			position: relative;
+			z-index: 20;
+		}
+
+		.footer-links {
+			display: flex;
+			justify-content: center;
+			flex-wrap: wrap;
+			margin: 30px 0;
+		}
+
+		.footer-links a {
+			color: white;
+			margin: 0 15px;
+			text-decoration: none;
+			transition: color 0.3s;
+		}
+
+		.footer-links a:hover {
+			color: #cbf0f6;
+		}
+
+		.copyright {
+			margin-top: 20px;
+			font-size: 14px;
+			color: #ccc;
+		}
+
+		/* Cloud animations */
+		.cloud {
+			position: absolute;
+			background-color: white;
+			border-radius: 50px;
+			opacity: 0.8;
+			z-index: 1;
+			box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+		}
+
+		.cloud:before,
+		.cloud:after {
+			content: '';
+			position: absolute;
+			background-color: white;
+			border-radius: 50%;
+		}
+
+		.cloud:before {
+			width: 60%;
+			height: 100%;
+			top: -40%;
+			left: 20%;
+		}
+
+		.cloud:after {
+			width: 40%;
+			height: 80%;
+			top: -25%;
+			right: 20%;
+		}
+
+		.cloud-small:before {
+			width: 70%;
+			height: 120%;
+			top: -50%;
+			left: 15%;
+		}
+
+		.cloud-small:after {
+			width: 50%;
+			height: 100%;
+			top: -35%;
+			right: 15%;
+		}
+
+		.cloud1 {
+			width: 100px;
+			height: 60px;
+			top: 10%;
+			left: 10%;
+			animation: float 30s linear infinite;
+		}
+
+		.cloud2 {
+			width: 140px;
+			height: 80px;
+			top: 20%;
+			right: 15%;
+			animation: float 25s linear infinite;
+		}
+
+		.cloud3 {
+			width: 80px;
+			height: 50px;
+			bottom: 30%;
+			left: 20%;
+			animation: float 35s linear infinite reverse;
+		}
+
+		.cloud4 {
+			width: 120px;
+			height: 70px;
+			bottom: 15%;
+			right: 10%;
+			animation: float 40s linear infinite;
+		}
+
+		/* Logo SVG styling */
+		.logo-svg {
+			width: 100%;
+			height: 100%;
+		}
+
+		@keyframes float {
+			0% {
+				transform: translateX(-20vw);
+			}
+
+			100% {
+				transform: translateX(120vw);
+			}
+		}
+
+		/* Newsletter section */
+		.newsletter {
+			padding: 80px 20px;
+			text-align: center;
+			position: relative;
+			z-index: 20;
+		}
+
+		.newsletter h2 {
+			font-size: 36px;
+			margin-bottom: 20px;
+		}
+
+		.newsletter p {
+			font-size: 18px;
+			max-width: 600px;
+			margin: 0 auto 30px;
+		}
+
+		.subscribe-form {
+			display: flex;
+			max-width: 500px;
+			margin: 0 auto;
+			flex-wrap: wrap;
+			justify-content: center;
+		}
+
+		.subscribe-form input {
+			flex-grow: 1;
+			min-width: 300px;
+			padding: 12px 20px;
+			border: 2px solid #ddd;
+			border-radius: 30px;
+			font-size: 16px;
+			margin-right: 10px;
+			margin-bottom: 10px;
+		}
+
+		.subscribe-form .cta-button {
+			margin: 0;
+			margin-bottom: 10px;
+		}
+
+		/* Responsive */
+		@media (max-width: 768px) {
+			.hero h1 {
+				font-size: 32px;
+			}
+
+			.hero p {
+				font-size: 18px;
+			}
+
+			.feature-card {
+				flex: 0 0 100%;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<!-- Clouds Animation - Base clouds -->
+	<div class="cloud cloud1"></div>
+	<div class="cloud cloud2"></div>
+	<div class="cloud cloud3"></div>
+	<div class="cloud cloud4"></div>
+
+	<header>
+		<div class="logo-container">
+			<img src="assets/no-cloud-logo.png" alt="Fast Node.js Serverless Framework Logo" class="logo-svg">
+		</div>
+	</header>
+
+	<section class="hero">
+		<h1>FLASHIX</h1>
+		<p>Fast, lightweight and efficient - A functional serverless framework for Node.js with extremely low overhead
+		</p>
+		<div class="coming-soon-badge">COMING SOON</div>
+		<div>
+			<a href="#newsletter" class="cta-button">Get Notified</a>
+			<a href="https://github.com/flashix-js" class="cta-button secondary">GitHub</a>
+		</div>
+	</section>
+
+	<section class="features">
+		<h2>Planned Features</h2>
+		<div class="feature-grid">
+			<div class="feature-card">
+				<h3>Lightning Fast</h3>
+				<p>Optimized performance with quick startup times and low latency for every request.</p>
+			</div>
+			<div class="feature-card">
+				<h3>Low Overhead</h3>
+				<p>Lightweight design minimizes resource usage and operational costs.</p>
+			</div>
+			<div class="feature-card">
+				<h3>Functional First</h3>
+				<p>Built with functional programming principles for clean, testable, and maintainable code.</p>
+			</div>
+			<div class="feature-card">
+				<h3>Easy Integration</h3>
+				<p>Works seamlessly with popular cloud services and existing Node.js technologies.</p>
+			</div>
+			<div class="feature-card">
+				<h3>Auto Scaling</h3>
+				<p>Automatically scales up or down based on actual traffic without complex configuration.</p>
+			</div>
+			<div class="feature-card">
+				<h3>Serverless</h3>
+				<p>Focus on business logic code instead of worrying about infrastructure management.</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="code-section" id="getting-started">
+		<h2>Coming Soon: Get Started in 30 Seconds</h2>
+		<div class="code-container">
+			<div class="code-dots">
+				<div class="dot red"></div>
+				<div class="dot yellow"></div>
+				<div class="dot green"></div>
+			</div>
+			<code>
+                <span class="highlight">// Install the cli -- Coming soon</span><br>
+                $ npm install @flashix/cli<br><br>
+            </code>
+		</div>
+	</section>
+
+	<section class="newsletter" id="newsletter">
+		<h2>Stay Updated</h2>
+		<p>Be the first to know when we launch. Subscribe to our newsletter for updates.</p>
+		<form class="subscribe-form">
+			<input type="email" placeholder="Your email address" required>
+			<button type="submit" class="cta-button">Subscribe</button>
+		</form>
+	</section>
+
+	<footer>
+		<div class="footer-links">
+			<a href="https://github.com/flashix-js">GitHub</a>
+			<a href="#roadmap">Roadmap</a>
+			<a href="#newsletter">Newsletter</a>
+			<a href="#contact">Contact</a>
+		</div>
+		<p class="copyright">© 2025 FLASHIX.</p>
+	</footer>
+
+	<script>
+		// Add more cloud elements dynamically
+		function createClouds() {
+			const body = document.body;
+			for (let i = 0; i < 10; i++) {
+				const cloud = document.createElement('div');
+
+				// Determine if this should be a smaller cloud
+				const isSmall = Math.random() > 0.5;
+				cloud.className = isSmall ? 'cloud cloud-small' : 'cloud';
+
+				// Set cloud size (vary the sizes more)
+				cloud.style.width = Math.random() * 120 + 80 + 'px';
+				cloud.style.height = Math.random() * 30 + 40 + 'px';
+
+				// Position the cloud
+				cloud.style.top = Math.random() * 90 + 5 + '%';
+
+				// Start position off-screen
+				cloud.style.left = -cloud.style.width;
+
+				// Varying opacity for depth effect
+				cloud.style.opacity = Math.random() * 0.3 + 0.5;
+
+				// Varying animation speed and delay
+				const speed = Math.random() * 40 + 60; // seconds
+				const delay = Math.random() * -30; // negative delay to start mid-animation
+				cloud.style.animation = `float ${speed}s linear infinite ${delay}s`;
+
+				// Add some z-index variation for overlapping effect
+				cloud.style.zIndex = Math.floor(Math.random() * 3) + 1;
+
+				body.appendChild(cloud);
+			}
+		}
+
+		// Call the function when the page loads
+		window.addEventListener('load', createClouds);
+
+		// Form submission (placeholder for actual functionality)
+		const form = document.querySelector('.subscribe-form');
+		if (form) {
+			form.addEventListener('submit', function (e) {
+				e.preventDefault();
+				alert('Thank you for subscribing! We will notify you when we launch.');
+				form.reset();
+			});
+		}
+		</script>
+</body>
+</html>
